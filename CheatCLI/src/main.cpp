@@ -32,8 +32,15 @@ void ReScanLoop(MemoryScanner *mem_scanner, int value_to_scan,
 
 int main(int argc, char *argv[]) {
 
+  if (argc < 2) {
+    printf("[!] Usage: CheatCli.exe <Game Process Name>");
+    return -1;
+  }
+
+  std::string game_process_name = argv[1];
+
   MemoryScanner *mem_scanner = new MemoryScanner();
-  if (!mem_scanner->attachToProcess("Game.exe")) {
+  if (!mem_scanner->attachToProcess(game_process_name)) {
 
     if (mem_scanner->getErrorCode() != 0) {
       printf("Attaching failed with error code %i\n",
