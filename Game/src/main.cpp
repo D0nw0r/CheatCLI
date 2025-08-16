@@ -21,15 +21,14 @@ void CreatePlayer(Player &player) {
   player.id = 1;
   player.weapon.id = 1;
   player.weapon.ammo = 20;
-
-  // Print the exact address
-  printf("[GAME] Player health (500) is at address: %p\n",
-         (void *)&player.health);
 }
 
 int main(int argc, char *argv[]) {
   Player player1;
   CreatePlayer(player1);
+  // Print the exact address
+  printf("[GAME] Player health (500) is at address: %p\n",
+         (void *)&player1.health);
 
   printf("[GAME] Player struct is at: %p\n", (void *)&player1);
   printf("[GAME] Health value: %d\n", player1.health);
@@ -49,13 +48,20 @@ int main(int argc, char *argv[]) {
     case 1:
       player1.health -= 10;
       printf("[-] 10 dmg taken, new hp: %i\n\n", player1.health);
+      printf("[GAME] Player health (500) is at address: %p\n",
+             (void *)&player1.health);
+
       break;
     case 2:
       printf("[-] Current hp: %i\n\n", player1.health);
+      printf("[GAME] Player health (500) is at address: %p\n",
+             (void *)&player1.health);
       break;
     case 3:
       player1.health = 500;
       printf("[+] Hp reset to: %i ", player1.health);
+      printf("[GAME] Player health (500) is at address: %p\n",
+             (void *)&player1.health);
       break;
 
     default:
