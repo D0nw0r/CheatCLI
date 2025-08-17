@@ -18,13 +18,16 @@ The CheatCLI mimicks a CheatEngine type of tool where it allows to scan a Proces
 
 
 ## Basic usage:
-The usage is pretty self-explanatory, launch both programs and attempt to locate a value in memory.
+The usage is pretty self-explanatory, launch both programs and attempt to locate a value in memory and edit it to an arbitraty value.
+This essentially mimicks an external cheat that can read the Game process memory and modify it.
+
 ![Alt text](/screenshot.png?raw=true "Flow")
 
 
 ## TODO
 
-- Keep implementing the maind loop;
+- Keep implementing the main loop;
+- Consider internal cheat example (DLL injected directly to the target process)
 - UI?
 - Maybe also better code documentation
 
