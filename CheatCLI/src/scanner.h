@@ -19,9 +19,13 @@ public:
     PROCESS_NOT_FOUND = 2,
     SNAPSHOT_FAILED = 3,
   };
-  bool attachToProcess(const std::string &processName);
+  // utils
   DWORD getProcId() { return processId; };
   INT getErrorCode() { return errorCode; };
+  HANDLE getProcessHandle() { return processHandle; };
+
+  // core func
+  bool attachToProcess(const std::string &processName);
   std::vector<uintptr_t> scanForValue(int targetValue);
   void MemoryScanner::Rescan(int value, std::vector<uintptr_t> &addresses_vec);
   template <typename T>

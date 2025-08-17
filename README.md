@@ -11,7 +11,7 @@ The project is made of two different components:
 (I know I suck at naming, it's a actually a sign of programming seniority.)
 
 The Game component is a simple implmentation revolving arround creating a Player structure with multiple fields.
-This is the struct that the CheatCLI will attempt to find and modify*.
+This is the struct that the CheatCLI will attempt to find and modify.
 
 
 The CheatCLI mimicks a CheatEngine type of tool where it allows to scan a Process specified by the user and locate values within it.
@@ -24,7 +24,7 @@ The usage is pretty self-explanatory, launch both programs and attempt to locate
 
 ## TODO
 
-- Add memory editing capability.
+- Keep implementing the maind loop;
 - UI?
 - Maybe also better code documentation
 

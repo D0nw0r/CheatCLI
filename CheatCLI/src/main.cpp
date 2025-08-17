@@ -1,8 +1,12 @@
 #include "scanner.h"
 #include <Windows.h>
+#include <basetsd.h>
 #include <cstddef>
+#include <cstdint>
 #include <cstdio>
+#include <errhandlingapi.h>
 #include <iostream>
+#include <memoryapi.h>
 #include <string>
 #include <vector>
 
@@ -56,7 +60,8 @@ int main(int argc, char *argv[]) {
 
   printf("[+] Scanning Process %lu memory for the value %i\n",
          mem_scanner->getProcId(), value_to_scan);
-  std::vector<uintptr_t> addresses_vec = mem_scanner->scanForValue(500);
+  std::vector<uintptr_t> addresses_vec =
+      mem_scanner->scanForValue(value_to_scan);
   printf("[+] Found %zu addresses\n", addresses_vec.size());
 
   for (size_t i = 0; i < addresses_vec.size(); i++) {
@@ -67,8 +72,28 @@ int main(int argc, char *argv[]) {
 
   printf("[+] Select which address to write to:\n");
   for (int i = 0; i < addresses_vec.size(); i++) {
-    printf("\t[*][%i] : %llx\n", i, addresses_vec[i]);
+    printf("\t[*][%i] : 0x%llx\n", i, addresses_vec[i]);
   }
+
+  std::cin >> value_to_scan;
+  uintptr_t selected_addr = addresses_vec[value_to_scan];
+
+  int value_to_write;
+  SIZE_T numberOfBytesWritten;
+  printf("[?] Which value to write?\n");
+  std::cin >> value_to_write;
+
+  if (!WriteProcessMemory(mem_scanner->getProcessHandle(),
+                          reinterpret_cast<LPVOID>(selected_addr),
+                          reinterpret_cast<LPCVOID>(&value_to_write),
+                          sizeof(int), &numberOfBytesWritten)) {
+    printf("[!] Failed to write to Process Memory: %lu\n", GetLastError());
+  }
+
+  printf("Written %llu bytes to 0x%llx with value %i\n", numberOfBytesWritten,
+         selected_addr, value_to_write);
+
+  getchar();
 
   return 0;
 }
