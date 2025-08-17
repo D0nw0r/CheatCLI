@@ -1,6 +1,6 @@
 #include <cstdio>
 #include <iostream>
-#include <string>
+#include <limits>
 #include <windows.h>
 
 struct Weapon {
@@ -41,30 +41,33 @@ int main(int argc, char *argv[]) {
     printf("[1] Take damage (-10hp)\n");
     printf("[2] Show Hp\n");
     printf("[3] Reset Hp\n");
-    std::string choice;
-    std::cin >> choice;
-
-    switch (std::stoi(choice)) {
+    int choice;
+    if (!(std::cin >> choice)) { // Only read once!
+      printf("[!] Invalid input! Please enter a number.\n");
+      std::cin.clear();
+      std::cin.ignore((std::numeric_limits<std::streamsize>::max)(), '\n');
+      continue;
+    }
+    switch (choice) {
     case 1:
       player1.health -= 10;
-      printf("[-] 10 dmg taken, new hp: %i\n\n", player1.health);
-      printf("[GAME] Player health (500) is at address: %p\n",
-             (void *)&player1.health);
+      printf("[GAME] Player health (%i) is at address: %p\n", player1.health,
+             &player1.health);
 
       break;
     case 2:
-      printf("[-] Current hp: %i\n\n", player1.health);
-      printf("[GAME] Player health (500) is at address: %p\n",
-             (void *)&player1.health);
+      printf("[GAME] Player health (%i) is at address: %p\n", player1.health,
+             &player1.health);
       break;
     case 3:
       player1.health = 500;
-      printf("[+] Hp reset to: %i ", player1.health);
-      printf("[GAME] Player health (500) is at address: %p\n",
-             (void *)&player1.health);
+      printf("[+] Hp reset to: %i\n", player1.health);
+      printf("[GAME] Player health (%i) is at address: %p\n", player1.health,
+             &player1.health);
       break;
 
     default:
+      printf("[!] Invalid option\n");
       break;
     }
   }

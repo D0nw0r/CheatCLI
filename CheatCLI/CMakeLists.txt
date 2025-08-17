@@ -1,7 +1,8 @@
 
 set(CHEATCLI_SOURCES
     src/main.cpp
-    src/api.cpp
+    src/scanner.cpp
+    src/scanner.h
 )
 
 

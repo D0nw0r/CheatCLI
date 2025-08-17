@@ -20,20 +20,16 @@ public:
     SNAPSHOT_FAILED = 3,
   };
   bool attachToProcess(const std::string &processName);
-
+  DWORD getProcId() { return processId; };
+  INT getErrorCode() { return errorCode; };
   std::vector<uintptr_t> scanForValue(int targetValue);
-
+  void MemoryScanner::Rescan(int value, std::vector<uintptr_t> &addresses_vec);
   template <typename T>
   bool MemoryScanner::readMemory(uintptr_t address, T &value) {
     SIZE_T bytesRead;
     return ReadProcessMemory(processHandle, reinterpret_cast<LPVOID>(address),
                              &value, sizeof(T), &bytesRead);
   };
-
-  void MemoryScanner::Rescan(int value, std::vector<uintptr_t> &addresses_vec);
-
-  DWORD getProcId() { return processId; };
-  INT getErrorCode() { return errorCode; };
 
   ~MemoryScanner() {
     if (processHandle && processHandle != INVALID_HANDLE_VALUE) {

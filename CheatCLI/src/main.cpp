@@ -1,4 +1,4 @@
-#include "api.h"
+#include "scanner.h"
 #include <Windows.h>
 #include <cstddef>
 #include <cstdio>
@@ -64,6 +64,11 @@ int main(int argc, char *argv[]) {
   }
 
   ReScanLoop(mem_scanner, value_to_scan, addresses_vec);
+
+  printf("[+] Select which address to write to:\n");
+  for (int i = 0; i < addresses_vec.size(); i++) {
+    printf("\t[*][%i] : %llx\n", i, addresses_vec[i]);
+  }
 
   return 0;
 }
